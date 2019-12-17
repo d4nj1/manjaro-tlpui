@@ -1,36 +1,37 @@
 # Maintainer: Bernhard Landauer <bernhard@manjaro.org>
 # Maintainer: slact
+# Contributor: Mark Wagie / yochananmarqos
 # Author: Daniel Christophis
 
-pkgname=tlpui
 _pkgname=TLPUI
-pkgver=r109.703bade
+pkgname=${_pkgname,,}
+pkgver=r110.372463b
 pkgrel=1
-pkgdesc="A GTK-UI to change TLP configuration files easily. It has the aim to protect users from setting bad configuration and to deliver a basic overview of all the valid configuration values."
+pkgdesc="A GTK user interface for TLP written in Python"
 arch=('any')
 url="https://github.com/d4nj1/$_pkgname"
-license=('GPLv2')
-depends=("tlp" "python" "pygtk" "python-gobject")
-source=(git+https://github.com/d4nj1/$_pkgname.git
-  "$pkgname.sh"
-  "$pkgname.desktop")
-md5sums=('SKIP'
-         '9f23dcf973bac1089280be1255dfe34d'
-         'ac5c088895666e9cdf095023acea5163')
+license=('GPL2')
+depends=('python-gobject'
+    'tlp')
+makedepends=('git'
+    'python-setuptools')
+source=("git+$url.git"
+        "$pkgname.desktop")
+sha256sums=('SKIP'
+    '9a085522172c8ef04d592bc8d4b0c82b49065f2dd259b312e4785cd5d3408e78')
 
 pkgver() {
-  cd $_pkgname
-  printf "r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
+    cd $_pkgname
+    printf "r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
+}
+
+build() {
+    cd $_pkgname
+    python setup.py build
 }
 
 package() {
-  cd "$srcdir/$_pkgname"
-  mkdir -p "$pkgdir"/opt/$pkgname
-  cp -dpr --no-preserve=ownership ./ "$pkgdir"/opt/$pkgname/
-  rm -Rf "$pkgdir"/opt/tlpui/$pkgname/__pycache__
-  rm -Rf "$pkgdir"/opt/tlpui/$pkgname/ui_config_objects/__pycache__  
-  
-  install -Dm644 "$srcdir"/$pkgname.desktop "$pkgdir"/usr/share/applications/$pkgname.desktop
-  install -Dm755 "$srcdir"/$pkgname.sh "$pkgdir"/usr/bin/$pkgname
+    install -Dm644 $pkgname.desktop -t $pkgdir/usr/share/applications
+    cd $_pkgname
+    python setup.py install --root="$pkgdir/" --optimize=1 --skip-build
 }
-
