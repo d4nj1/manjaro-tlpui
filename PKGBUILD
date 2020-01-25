@@ -6,7 +6,7 @@
 _pkgname=TLPUI
 pkgname=${_pkgname,,}
 pkgver=r113.542fb5c
-pkgrel=2
+pkgrel=3
 pkgdesc="A GTK user interface for TLP written in Python"
 arch=('any')
 url="https://github.com/d4nj1/$_pkgname"
@@ -18,7 +18,7 @@ makedepends=('git'
 source=("git+$url.git"
         "$pkgname.desktop")
 sha256sums=('SKIP'
-            '2590ec9086ef7966ac5415fe2c754014cf198a35bb9a8b4fa0f25ef31e6ebf87')
+            'b2d14921bfe1939096dd53d21a043d029caf3d5daffd0b514b066320f6913e27')
 
 pkgver() {
     cd $_pkgname

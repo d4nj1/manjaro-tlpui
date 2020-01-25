@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=TLPUI
+Icon=preferences-system-power-management
 Comment=Adavanced Power Management (TLP)
 Keywords=TLP TLP-UI
 Exec=/usr/bin/tlpui
