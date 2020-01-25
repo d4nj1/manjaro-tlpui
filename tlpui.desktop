@@ -6,4 +6,4 @@ Keywords=TLP TLP-UI
 Exec=/usr/bin/tlpui
 Terminal=false
 Type=Application
-Categoriescom=Settings;System;Utility
+Categories=Settings;System;Utility
