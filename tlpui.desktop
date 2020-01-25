@@ -1,9 +1,9 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=TLPUI
-Comment=A GTK user interface for TLP
+Comment=Adavanced Power Management (TLP)
 Keywords=TLP TLP-UI
-Exec=tlpui
+Exec=/usr/bin/tlpui
 Terminal=false
 Type=Application
-Categories=Settings;HardwareSettings
+Categoriescom=Settings;System;Utility
