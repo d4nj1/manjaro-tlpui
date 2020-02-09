@@ -5,8 +5,8 @@
 
 _pkgname=TLPUI
 pkgname=${_pkgname,,}
-pkgver=r113.542fb5c
-pkgrel=3
+pkgver=r117.8496dce
+pkgrel=1
 pkgdesc="A GTK user interface for TLP written in Python"
 arch=('any')
 url="https://github.com/d4nj1/$_pkgname"
