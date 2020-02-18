@@ -5,7 +5,7 @@
 
 _pkgname=TLPUI
 pkgname=${_pkgname,,}
-pkgver=r117.8496dce
+pkgver=r123.945ff46
 pkgrel=1
 pkgdesc="A GTK user interface for TLP written in Python"
 arch=('any')
