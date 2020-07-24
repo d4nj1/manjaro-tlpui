@@ -1,37 +1,38 @@
 # Maintainer: Bernhard Landauer <bernhard@manjaro.org>
-# Maintainer: slact
-# Contributor: Mark Wagie / yochananmarqos
+# Maintainer: Mark Wagie <mark@manjaro.org>
+
+# Contributor: slact
 # Author: Daniel Christophis
 
-_pkgname=TLPUI
-pkgname=${_pkgname,,}
-pkgver=1.2.r6.g945ff46
+pkgname=tlpui
+pkgver=1.3.1
 pkgrel=1
 pkgdesc="A GTK user interface for TLP written in Python"
 arch=('any')
-url="https://github.com/d4nj1/$_pkgname"
+url="https://github.com/d4nj1/TLPUI"
 license=('GPL2')
-depends=('python-gobject'
-    'tlp')
-makedepends=('git'
-    'python-setuptools')
-source=("git+$url.git"
+depends=('tlp' 'python-gobject')
+makedepends=('git' 'python-setuptools')
+_commit='14396b207fa53764db2bee64946055047f77ffa7' # tag=tlpui-1.3.1
+source=("$pkgname::git+$url.git#commit=$_commit"
         "$pkgname.desktop")
 sha256sums=('SKIP'
             'd96ecaac5512ccb7ba5fa15601c65a9092fb350519961ed1fba70a0c103e3876')
 
 pkgver() {
-    cd $_pkgname
-    git describe --long --tags | sed 's/^tlp.//;s/\([^-]*-g\)/r\1/;s/-/./g'
+    cd "$srcdir/$pkgname"
+    git describe --tags | sed 's/^tlpui.//;s/-/+/g'
 }
 
 build() {
-    cd $_pkgname
+    cd "$srcdir/$pkgname"
     python setup.py build
 }
 
 package() {
-    install -Dm644 $pkgname.desktop -t $pkgdir/usr/share/applications
-    cd $_pkgname
+    cd "$srcdir/$pkgname"
     python setup.py install --root="$pkgdir/" --optimize=1 --skip-build
+
+    install -Dm644 "$srcdir/$pkgname.desktop" -t \
+        "$pkgdir/usr/share/applications"
 }
