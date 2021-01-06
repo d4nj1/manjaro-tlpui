@@ -5,7 +5,7 @@
 # Author: Daniel Christophis
 
 pkgname=tlpui
-pkgver=1.3.1.4
+pkgver=1.3.1.5
 pkgrel=1
 pkgdesc="A GTK user interface for TLP written in Python"
 arch=('any')
@@ -13,7 +13,7 @@ url="https://github.com/d4nj1/TLPUI"
 license=('GPL2')
 depends=('tlp' 'python-gobject')
 makedepends=('git' 'python-setuptools')
-_commit='b5104d9b3a8078319fc1d04967c1826c58575dac' # tag=tlpui-1.3.1-4
+_commit='7b97638aef3b34a0fd6f421e9a16f2018f1d52fa' # tag=tlpui-1.3.1-5
 source=("$pkgname::git+$url.git#commit=$_commit"
         "$pkgname.desktop")
 sha256sums=('SKIP'
