@@ -5,7 +5,7 @@
 # Author: Daniel Christophis
 
 pkgname=tlpui
-pkgver=1.3.1.8
+pkgver=1.4.0.alpha1
 pkgrel=1
 pkgdesc="A GTK user interface for TLP written in Python"
 arch=('any')
@@ -13,11 +13,11 @@ url="https://github.com/d4nj1/TLPUI"
 license=('GPL2')
 depends=('tlp' 'python-gobject')
 makedepends=('git' 'python-setuptools')
-_commit='7de3d8bbed34ea619a00fca159f14677440ffd8b' # tag=tlpui-1.3.1-8
+_commit=a7ede9df9ae4cabeb4a482daea09b5d7a5c39a55 # tag=tlpui-1.4.0-alpha1
 source=("$pkgname::git+$url.git#commit=$_commit"
         "$pkgname.desktop")
 sha256sums=('SKIP'
-            '347fad2e6cf02d01d770b654f8b2da1f8aaa0ac37097f84ef6bc4053bd7fcae4')
+            'c07939b2e8c08e649579b9f3b3144b927834229f09a8f77f7f627f789c875b99')
 
 pkgver() {
     cd "$srcdir/$pkgname"
@@ -31,9 +31,24 @@ build() {
 
 package() {
     cd "$srcdir/$pkgname"
-    export PYTHONHASHSEED=0
     python setup.py install --root="$pkgdir/" --optimize=1 --skip-build
 
     install -Dm644 "$srcdir/$pkgname.desktop" -t \
         "$pkgdir/usr/share/applications"
+
+    for icon_size in 16 32 48 64 128 96 128 256; do
+        icons_dir=usr/share/icons/hicolor/${icon_size}x${icon_size}/apps
+        install -d "$pkgdir/$icons_dir"
+        install -m644 "$pkgname/icons/themeable/hicolor/${icon_size}x${icon_size}/apps/$pkgname.png" -t \
+            "$pkgdir/$icons_dir"
+    done
+
+    install -Dm644 "$pkgname/icons/themeable/hicolor/scalable/apps/$pkgname.svg" -t \
+        "$pkgdir/usr/share/icons/hicolor/scalable/apps"
+
+    # Fix missing icon in About dialog
+    local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+    install -d "$pkgdir$site_packages/$pkgname/icons/themeable/hicolor/scalable/apps"
+    ln -s "/usr/share/icons/hicolor/scalable/apps/$pkgname.svg" \
+        "$pkgdir$site_packages/$pkgname/icons/themeable/hicolor/scalable/apps"
 }
