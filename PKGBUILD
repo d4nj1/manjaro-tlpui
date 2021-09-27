@@ -5,7 +5,7 @@
 # Author: Daniel Christophis
 
 pkgname=tlpui
-pkgver=1.4.0.alpha1
+pkgver=1.4.0
 pkgrel=1
 pkgdesc="A GTK user interface for TLP written in Python"
 arch=('any')
@@ -13,7 +13,7 @@ url="https://github.com/d4nj1/TLPUI"
 license=('GPL2')
 depends=('tlp' 'python-gobject')
 makedepends=('git' 'python-setuptools')
-_commit=a7ede9df9ae4cabeb4a482daea09b5d7a5c39a55 # tag=tlpui-1.4.0-alpha1
+_commit=2edc2142314a7d7a01bccd87ed47c2fb95da98c2 # tag=tlpui-1.4.0
 source=("$pkgname::git+$url.git#commit=$_commit"
         "$pkgname.desktop")
 sha256sums=('SKIP'
@@ -45,10 +45,4 @@ package() {
 
     install -Dm644 "$pkgname/icons/themeable/hicolor/scalable/apps/$pkgname.svg" -t \
         "$pkgdir/usr/share/icons/hicolor/scalable/apps"
-
-    # Fix missing icon in About dialog
-    local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-    install -d "$pkgdir$site_packages/$pkgname/icons/themeable/hicolor/scalable/apps"
-    ln -s "/usr/share/icons/hicolor/scalable/apps/$pkgname.svg" \
-        "$pkgdir$site_packages/$pkgname/icons/themeable/hicolor/scalable/apps"
 }
