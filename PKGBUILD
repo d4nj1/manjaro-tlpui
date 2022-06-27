@@ -5,36 +5,34 @@
 # Author: Daniel Christophis
 
 pkgname=tlpui
-pkgver=1.5.0
-pkgrel=2
+_pkgver=1.5.0-1
+pkgver=${_pkgver//-/.}
+pkgrel=1
 pkgdesc="A GTK user interface for TLP written in Python"
 arch=('any')
 url="https://github.com/d4nj1/TLPUI"
 license=('GPL2')
 depends=('tlp' 'python-gobject')
-makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
-_commit=83e41298674cac7487dd4f4d64f8552617d40b6c # tag=tlpui-1.5.0
-source=("$pkgname::git+$url.git#commit=$_commit"
+makedepends=('git' 'python-setuptools')
+_commit=ea2ea6b72686a09f0e361a973147c76e3ebc864e # tag=tlpui-1.5.0-1
+source=("git+https://github.com/d4nj1/TLPUI.git#commit=$_commit"
         "$pkgname.desktop")
 sha256sums=('SKIP'
             'c07939b2e8c08e649579b9f3b3144b927834229f09a8f77f7f627f789c875b99')
 
 pkgver() {
-    cd "$srcdir/$pkgname"
+    cd "$srcdir/TLPUI"
     git describe --tags | sed 's/^tlpui.//;s/-/./g'
 }
 
 build() {
-    cd "$srcdir/$pkgname"
-    python -m build --wheel --no-isolation
+    cd "$srcdir/TLPUI"
+    python setup.py build
 }
 
 package() {
-    cd "$srcdir/$pkgname"
-    python -m installer --destdir="$pkgdir" dist/*.whl
-
-    local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-    rm -rf "${pkgdir}${site_packages}/usr"
+    cd "$srcdir/TLPUI"
+    python setup.py install --root="$pkgdir" --optimize=1 --skip-build
 
     install -Dm644 "$srcdir/$pkgname.desktop" -t \
         "$pkgdir/usr/share/applications"
