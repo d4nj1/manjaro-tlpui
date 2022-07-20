@@ -5,8 +5,7 @@
 # Author: Daniel Christophis
 
 pkgname=tlpui
-_pkgver=1.5.0-1
-pkgver=${_pkgver//-/.}
+pkgver=1.5.0.2
 pkgrel=1
 pkgdesc="A GTK user interface for TLP written in Python"
 arch=('any')
@@ -14,7 +13,7 @@ url="https://github.com/d4nj1/TLPUI"
 license=('GPL2')
 depends=('tlp' 'python-gobject')
 makedepends=('git' 'python-setuptools')
-_commit=ea2ea6b72686a09f0e361a973147c76e3ebc864e # tag=tlpui-1.5.0-1
+_commit=a91bea354a37570255e4d6ce5d615dfae4efdf54 # tag=tlpui-1.5.0-2
 source=("git+https://github.com/d4nj1/TLPUI.git#commit=$_commit"
         "$pkgname.desktop")
 sha256sums=('SKIP'
@@ -39,9 +38,9 @@ package() {
 
     for icon_size in 16 32 48 64 128 96 128 256; do
         icons_dir=usr/share/icons/hicolor/${icon_size}x${icon_size}/apps
-        install -d "$pkgdir/$icons_dir"
+        install -d "$pkgdir/${icons_dir}"
         install -m644 "$pkgname/icons/themeable/hicolor/${icon_size}x${icon_size}/apps/$pkgname.png" -t \
-            "$pkgdir/$icons_dir"
+            "$pkgdir/${icons_dir}"
     done
 
     install -Dm644 "$pkgname/icons/themeable/hicolor/scalable/apps/$pkgname.svg" -t \
