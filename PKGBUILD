@@ -6,7 +6,7 @@
 
 pkgname=tlpui
 pkgver=1.5.0.7
-pkgrel=1
+pkgrel=2
 pkgdesc="A GTK user interface for TLP written in Python"
 arch=('any')
 url="https://github.com/d4nj1/TLPUI"
